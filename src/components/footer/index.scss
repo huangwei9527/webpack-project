@@ -1,0 +1,11 @@
+.footer{
+  border: 1px solid red;
+  height: 30px;
+  line-height:30px;
+  color:#fff;
+  background-color: rgba(0,0,0,.3);
+  background-image: url(./images/1.jpg);
+  & #footerId{
+    box-shadow: 0 0 8px #333;
+  }
+}
