@@ -1,0 +1,56 @@
+/**
+  定义公共变量
+ */
+
+
+/**--------------------------------------
+ * Setting
+ *---------------------------------------*/
+$baseFontSize:              20px;
+$base:                      .05rem;
+
+
+
+/**--------------------------------------
+ * color
+ *---------------------------------------*/
+$color-primary : #1abd9b;//主题色
+
+$color-success: #13ce66;
+$color-warning: #f7ba2a;
+$color-danger: #ff4949;
+$color-info: #50bfff;
+
+$color-white: #fff;
+$color-black: #000;
+
+
+/**--------------------------------------
+ * link
+ *---------------------------------------*/
+$link-color: var(--color-extra-light-black);
+$link-hover-color: var(--color-primary);
+
+
+$font-family:               'Microsoft YaHei', 'Arial' ;
+$font-size-min:             12 * $base;
+$font-size:                 14 * $base;
+$font-size-medium:          18 * $base;
+
+$line-height:               2;
+
+$border-radius:             18px;
+
+
+$btn-color:                 #ffffff, #ffffff, rgba(255,255,255,.5);
+$btn-background:            #ac975e, #bda460, #978450;
+
+
+$footer-link:               #979797, #ffffff, #999999;
+
+$link-color:                #646464, #323232, #787878;
+
+$radio-color:               #8c8c8c, #646464, #ac975e;
+$dropdown-color:            #8c8c8c, #646464, #505050;
+$dropdown-background:       #ffffff, #f0f0f0, #e6e6e6;
+

@@ -1,8 +1,8 @@
 require('./index.scss');
 
-init();
-
-
-function init() {
+var header = (function() {
     console.log('this is nav')
-}
+	Ipmph.UserModel.init();
+})();
+
+module.exports = header;

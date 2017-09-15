@@ -1,0 +1,12 @@
+/**
+  用于定义function
+ */
+
+//设置透明度，黑色透明度，白色透明度
+@function black($opacity) {
+  @return rgba(0, 0, 0, $opacity)
+}
+
+@function white($opacity) {
+  @return rgba(255, 255, 255, $opacity)
+}

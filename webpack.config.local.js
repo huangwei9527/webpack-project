@@ -4,6 +4,7 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
 const MyReplaceLoaderPlugin = require('./my-replace-loader');
 
 
@@ -17,11 +18,11 @@ let replaceOtions = {
 var exports = {
 	devtool: "source-map",    //生成sourcemap,便于开发调试
 	entry:{
-		'common':['es5-shim','es5-shim/es5-sham','./src/common/js/index.js']
+		'common':['es5-shim','es5-shim/es5-sham','./src/common/index.js']
 	},
 	output:{
 		path:path.resolve(__dirname,'product-local'),
-        publicPath:'/project/product-local/',
+        publicPath:'/',
 		filename:'static/[name].js'
 	},
 	module:{
@@ -48,7 +49,7 @@ var exports = {
 			},
 			{
 				test: /\.css$/,
-				include:[path.resolve(__dirname,'src/common'),path.resolve(__dirname,'src/components')],
+				include:[path.resolve(__dirname,'src/components')],
 				use: ExtractTextPlugin.extract({
 					fallback: "style-loader",
 					use: [
@@ -74,7 +75,7 @@ var exports = {
 			},
 			{
 				test:/\.(scss)$/,
-				include:[path.resolve(__dirname,'src/common'),path.resolve(__dirname,'src/components')],
+				include:[path.resolve(__dirname,'src/components')],
 				use: ExtractTextPlugin.extract({
 					fallback: "style-loader",
 					use: [
@@ -100,6 +101,49 @@ var exports = {
 				})
 			},
 			{
+				test: /\.css$/,
+				include:[path.resolve(__dirname,'src/common')],
+				use: [
+					{loader: 'style-loader'},
+					{
+						loader: 'css-loader',
+					},
+					{
+						loader: 'postcss-loader',
+						options:{
+							plugins:function(){
+								return [
+									require('postcss-import')(),        //一定要写在require("autoprefixer")前面，否则require("autoprefixer")无效
+									require("autoprefixer")({browsers:['ie>=8','>1% in CN']})
+								]
+							}
+						}
+					}
+				]
+			},
+			{
+				test:/\.(scss)$/,
+				include:[path.resolve(__dirname,'src/common')],
+				use: [
+					{loader: 'style-loader'},
+					{
+						loader: 'css-loader',
+					},
+					{
+						loader: 'postcss-loader',
+						options:{
+							plugins:function(){
+								return [
+									require('postcss-import')(),        //一定要写在require("autoprefixer")前面，否则require("autoprefixer")无效
+									require("autoprefixer")({browsers:['ie>=8','>1% in CN']})
+								]
+							}
+						}
+					},
+					{loader: 'sass-loader'}
+				]
+			},
+			{
 				test:/\.(jpe?g|png|gif)$/i,
 				include:[path.resolve(__dirname,'src/common'),path.resolve(__dirname,'src/components')],
 				loader:'url-loader?hash=sha512&digest=hex&limit=5&name=static/common/images/[name][hash].[ext]'
@@ -111,8 +155,17 @@ var exports = {
 		]
 	},
     externals : {
-        'jquery' : 'window.jQuery'
+		$: "jquery",
+		"window.jQuery": "jquery"
     },
+	resolve : {
+		alias : {
+			node_modules	: __dirname + '/node_modules',
+			pages			: __dirname + '/src/pages',
+			components		: __dirname + '/src/components',
+			common			: __dirname + '/src/common'
+		}
+	},
 	plugins: [
 		new webpack.optimize.CommonsChunkPlugin({
         	name:'common',
@@ -131,7 +184,7 @@ var exports = {
             allChunks: true
         }),
 		new CleanWebpackPlugin(
-			['product'],　 //匹配删除的文件
+			['product-local'],　 //匹配删除的文件
 			{
 				root: __dirname,       　　　　　　　　　　//根目录
 				verbose:  true,        　　　　　　　　　　//开启在控制台输出信息
@@ -144,7 +197,13 @@ var exports = {
                 to: 'static/assets'
             }
         ]),
-		new MyReplaceLoaderPlugin(replaceOtions)
+		new MyReplaceLoaderPlugin(replaceOtions),
+		new MyReplaceLoaderPlugin(replaceOtions),
+		// new OptimizeCSSPlugin({//css去重
+		// 	cssProcessorOptions: {
+		// 		safe: true
+		// 	}
+		// }),
 	]
 };
 
@@ -187,7 +246,7 @@ files.forEach(function(item){
         use: ExtractTextPlugin.extract({
             fallback: "style-loader",
             use: [
-                { loader: 'css-loader', options: { importLoaders: 1 } },
+                { loader: 'css-loader?sourceMap', options: { importLoaders: 1 } },
                 {
                     loader: 'postcss-loader',
                     options:{
@@ -210,7 +269,7 @@ files.forEach(function(item){
 			fallback: "style-loader",
 			use: [
 				{
-					loader: 'css-loader',
+					loader: 'css-loader?sourceMap',
 					// options:{
 					//     minimize: !outputConfig.IS_DEBUG //css压缩
 					// }
@@ -226,7 +285,7 @@ files.forEach(function(item){
 						}
 					}
 				},
-				{loader:'sass-loader'}
+				{loader:'sass-loader?sourceMap'}
 			]
 		})
 	};

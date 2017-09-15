@@ -1,19 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    ${require('html-loader!../../../components/commonHeader/index.html')}
+    ${require('components/commonHeader/index.html')}
 
 </head>
 <body>
-${require('html-loader!../../../components/nav-header/index.html')}
+<div class="wrapper">
+    ${require('components/nav-header/index.html')}
 
-<h2 class="white">contact pages 1234</h2>
-<div></div>
-${require('html-loader!../../../components/footer/index.html')}
+    <!--页面主体部分-->
+    <div class="page-main">
+
+        <h1>功能页面-->联系我们页面 demo</h1>
+
+    </div>
+
+    ${require('components/footer/index.html')}
+</div>
 
 <!--公共外链js文件-->
-${require('html-loader!../../../components/commonScript/index.html')}
+${require('components/commonScript/index.html')}
 </body>
 </html>

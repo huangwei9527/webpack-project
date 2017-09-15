@@ -1,0 +1,112 @@
+/**
+ 用于定义mixins
+ */
+
+//清除浮动
+@mixin clearfix {
+  *zoom: 1;
+  &:before,
+  &:after {
+    content: "";
+    display: table;
+  }
+  &:after {
+    clear: both;
+    overflow: hidden;
+  }
+}
+
+//水平居中
+@mixin horizontal-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+//重置掉已设置的了浮动的功能，并且重置display。
+@mixin reset-float($display:block){
+  float: none;
+  display: $display;
+}
+
+//min-height最小高度，主要用来设置元素的最小高度。当元素内容撑不到所需高度时，就可以使用min-height轻松实现。
+@mixin min-height($height){
+  min-height: $height;
+  height: auto !important;
+  @if $legacy-support-for-ie {
+    _height: $height;
+  }
+}
+
+
+//对于单行文本的截取，并用…代替截取不显示的文本。
+@mixin singleline-ellipsis($substract:0){//`$substract`单位为%
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100% - $substract;
+}
+
+
+
+//禁用样式
+@mixin disabled($bgColor: #e6e6e6,$textColor:#ababab){
+  background-color: $bgColor !important;
+  color: $textColor !important;
+  cursor: not-allowed !important;
+}
+
+//透明度，兼容IE8 mixins
+@mixin opacity($opacity:50) {
+  opacity: $opacity / 100;
+  @if $filter{
+    filter: alpha(opacity=$opacity);
+  }
+}
+
+
+//boxshadow:边框阴影
+@mixin boxshadow($x: 3px, $y: 3px, $shadowcolor: #cccccc) {
+  -moz-box-shadow: $x $y 4px $shadowcolor; // FF3.5+
+  -webkit-box-shadow: $x $y 4px $shadowcolor; // Saf3.0+, Chrome
+  box-shadow: $x $y 4px $shadowcolor; // Opera 10.5, IE 9.0
+  filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=#{$x}, OffY=#{$y}, Color='#{$shadowcolor}');
+  /* IE6,IE7 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.dropshadow(OffX=#{$x}, OffY=#{$y}, Color='#{$shadowcolor}')";
+  /* IE8 */
+}
+
+
+
+/*
+使用纯CSS现实三角形箭头，兼容所有浏览器；使用了三个参数，第一个是"方向"，第二个是"大小"，第三个是"颜色"
+arrow(direction,size,color);
+*/
+@mixin arrow($direction,$size,$color) {
+  width: 0;
+  height: 0;
+  line-height: 0;
+  font-size: 0;
+  overflow: hidden;
+  border-width: $size;
+  cursor: pointer;
+  @if $direction == top {
+    border-style: dashed dashed solid dashed;
+    border-color: transparent transparent $color transparent;
+    border-top: none;
+  }
+  @else if $direction == bottom {
+    border-style: solid dashed dashed dashed;
+    border-color: $color transparent transparent transparent;
+    border-bottom: none;
+  }
+  @else if $direction == right {
+    border-style: dashed dashed dashed solid;
+    border-color: transparent transparent transparent $color;
+    border-right: none;
+  }
+  @else if $direction == left {
+    border-style: dashed solid dashed dashed;
+    border-color: transparent $color transparent transparent;
+    border-left: none;
+  }
+}

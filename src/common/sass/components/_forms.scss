@@ -1,0 +1,10 @@
+/*初始化一些表单样式*/
+
+//label input标签居中对齐
+label, input {
+  display: inline-block;
+  vertical-align: middle;
+  *display:inline;
+  *zoom: 1;
+  *vertical-align: auto;
+}

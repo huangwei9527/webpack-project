@@ -1,10 +1,10 @@
-let target = 'http://127.0.0.1:3000';
+let target = 'http://119.254.226.115';
 
 let proxyTable = {
-    '/comments': {
+    '/sysNoticeAction!getNoticeList.action': {
         target: target,
         changeOrigin: true
     }
-}
+};
 
 module.exports = proxyTable;

@@ -1,5 +1,5 @@
 /**
- * 利用html-webpack-plugin插件的钩子函数html-webpack-plugin-before-html-processing
+ * 利用html-webpack-plugin插件的钩子函数html-webpack-plugin-before-html-processing实现打包时替换模板中字符串的功能
  *
  * 这个插件是功能是html内字符串替换
  * @param options options对象key是要替换的目标字符串，value是替换字符
@@ -27,7 +27,6 @@ MyReplaceLoaderPlugin.prototype.apply = function(compiler) {
 			callback(null, htmlPluginData);
 		});
 	});
-
 };
 
 module.exports = MyReplaceLoaderPlugin;

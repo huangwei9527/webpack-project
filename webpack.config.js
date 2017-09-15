@@ -5,7 +5,9 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
 const MyReplaceLoaderPlugin = require('./my-replace-loader');
+
 
 global.outputConfig={
     RESOURCES:"/static",
@@ -23,7 +25,7 @@ let replaceOtions = {
 var exports = {
     //devtool: "source-map",
 	entry:{
-		'common':['es5-shim','es5-shim/es5-sham','./src/common/js/index.js']
+		'common':['es5-shim','es5-shim/es5-sham','./src/common/index.js']
 	},
 	output:{
 		path:path.resolve(__dirname,'product'),
@@ -53,34 +55,34 @@ var exports = {
 				]
 			},
 			{
-                test: /\.css$/,
-                include:[path.resolve(__dirname,'src/common'),path.resolve(__dirname,'src/components')],
-                use: ExtractTextPlugin.extract({
-                    fallback: "style-loader",
-                    use: [
-                        {
-                            loader: 'css-loader',
-                            // options:{
-                            //     minimize: !outputConfig.IS_DEBUG //css压缩
-                            // }
-                        },
-                        {
-                            loader: 'postcss-loader',
-                            options:{
-                                plugins:function(){
-                                    return [
-                                        require('postcss-import')(),        //一定要写在require("autoprefixer")前面，否则require("autoprefixer")无效
-                                        require("autoprefixer")({browsers:['ie>=8','>1% in CN']})
-                                    ]
-                                }
-                            }
-                        }
-                    ]
-                })
+				test: /\.css$/,
+				include:[path.resolve(__dirname,'src/components')],
+				use: ExtractTextPlugin.extract({
+					fallback: "style-loader",
+					use: [
+						{
+							loader: 'css-loader',
+							// options:{
+							//     minimize: !outputConfig.IS_DEBUG //css压缩
+							// }
+						},
+						{
+							loader: 'postcss-loader',
+							options:{
+								plugins:function(){
+									return [
+										require('postcss-import')(),        //一定要写在require("autoprefixer")前面，否则require("autoprefixer")无效
+										require("autoprefixer")({browsers:['ie>=8','>1% in CN']})
+									]
+								}
+							}
+						}
+					]
+				})
 			},
 			{
-                test:/\.(scss)$/,
-				include:[path.resolve(__dirname,'src/common'),path.resolve(__dirname,'src/components')],
+				test:/\.(scss)$/,
+				include:[path.resolve(__dirname,'src/components')],
 				use: ExtractTextPlugin.extract({
 					fallback: "style-loader",
 					use: [
@@ -101,9 +103,52 @@ var exports = {
 								}
 							}
 						},
-                        {loader:'sass-loader'}
+						{loader:'sass-loader'}
 					]
 				})
+			},
+			{
+				test: /\.css$/,
+				include:[path.resolve(__dirname,'src/common')],
+				use: [
+					{loader: 'style-loader'},
+					{
+						loader: 'css-loader',
+					},
+					{
+						loader: 'postcss-loader',
+						options:{
+							plugins:function(){
+								return [
+									require('postcss-import')(),        //一定要写在require("autoprefixer")前面，否则require("autoprefixer")无效
+									require("autoprefixer")({browsers:['ie>=8','>1% in CN']})
+								]
+							}
+						}
+					}
+				]
+			},
+			{
+				test:/\.(scss)$/,
+				include:[path.resolve(__dirname,'src/common')],
+				use: [
+					{loader: 'style-loader'},
+					{
+						loader: 'css-loader',
+					},
+					{
+						loader: 'postcss-loader',
+						options:{
+							plugins:function(){
+								return [
+									require('postcss-import')(),        //一定要写在require("autoprefixer")前面，否则require("autoprefixer")无效
+									require("autoprefixer")({browsers:['ie>=8','>1% in CN']})
+								]
+							}
+						}
+					},
+					{loader: 'sass-loader'}
+				]
 			},
             {
                 test:/\.(jpe?g|png|gif)$/i,
@@ -118,9 +163,16 @@ var exports = {
 	},
     externals : {
 		$: "jquery",
-		jQuery: "jquery",
 		"window.jQuery": "jquery"
     },
+	resolve : {
+		alias : {
+			node_modules	: __dirname + '/node_modules',
+			pages			: __dirname + '/src/pages',
+			components		: __dirname + '/src/components',
+			common			: __dirname + '/src/common'
+		}
+	},
 	plugins: [
 		new webpack.optimize.CommonsChunkPlugin({
         	name:'common',
@@ -151,7 +203,12 @@ var exports = {
                 to: 'static/assets'
             }
         ]),
-		new MyReplaceLoaderPlugin(replaceOtions)
+		new MyReplaceLoaderPlugin(replaceOtions),
+		new OptimizeCSSPlugin({//css去重
+			cssProcessorOptions: {
+				safe: true
+			}
+		}),
 	]
 };
 
@@ -159,19 +216,19 @@ var exports = {
 if(outputConfig.IS_DEBUG){
     exports['devtool'] = "source-map";//source map
 }else{//正式环境开启压缩js
-    // exports.plugins.push(
-    //     new webpack.optimize.UglifyJsPlugin({
-    //         compress: {
-    //             properties: false,
-    //             warnings: false
-    //         },
-    //         output: {
-    //             beautify: true,
-    //             quote_keys: true//解决IE8报错
-    //         },
-    //         sourceMap: false
-    //     })
-    // )
+	exports.plugins.push(
+	    new webpack.optimize.UglifyJsPlugin({
+	        compress: {
+	            properties: false,
+	            warnings: false
+	        },
+	        output: {
+	            beautify: true,
+	            quote_keys: true//解决IE8报错
+	        },
+	        sourceMap: false
+	    })
+	)
 }
 
 
