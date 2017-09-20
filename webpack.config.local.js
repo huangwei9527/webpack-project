@@ -11,8 +11,7 @@ const MyReplaceLoaderPlugin = require('./my-replace-loader');
 
 //可以设置html中要替换的字符串
 let replaceOtions = {
-	// "this is footer" : "repalce by webpack",
-	// "index page" : "webpack"
+	"%staticResource%" : "/static/"
 }
 
 var exports = {

@@ -1,5 +1,5 @@
 //引入公共css
-require('./css/common.css');
+
 
 /**
  * 公共对象
@@ -10,13 +10,13 @@ window.Ipmph.common=window.Ipmph.common||{};
 /**
  * 公共函数部分 utils
  */
-require('./js/utils/Browser');
+require('./js/_utils/Browser');
 window.Ipmph.Browser=window.Ipmph.common.Browser;//缩写
 
-require('./js/utils/Cookie');
+require('./js/_utils/Cookie');
 window.Ipmph.Cookie=window.Ipmph.common.Cookie;//缩写
 
-require('./js/utils/Events');
+require('./js/_utils/Events');
 window.Ipmph.Events=window.Ipmph.common.Events;//缩写
 
 

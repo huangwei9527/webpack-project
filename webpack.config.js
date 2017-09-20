@@ -11,14 +11,13 @@ const MyReplaceLoaderPlugin = require('./my-replace-loader');
 
 global.outputConfig={
     RESOURCES:"/static",
-    PUBLIC_PATH: "/",
+    PUBLIC_PATH: "/myWorks/project/product/static/",
     IS_DEBUG:false
 };
 
 //可以设置html中要替换的字符串
 let replaceOtions = {
-	// "this is footer" : "repalce by webpack",
-	// "index page" : "webpack"
+	"%staticResource%" : "/myWorks/project/product/static/"
 }
 
 

@@ -4,53 +4,57 @@
 
 
 /**--------------------------------------
- * Setting
+ * color初始化
  *---------------------------------------*/
-$baseFontSize:              20px;
-$base:                      .05rem;
+$color-primary:             #1abd9b;//主题色
 
+$color-success:             #13ce66;
+$color-warning:             #f7ba2a;
+$color-danger:              #ff4949;
+$color-info:                #50bfff;
 
+$color-white:               #fff;
+$color-black:               #000;
 
-/**--------------------------------------
- * color
- *---------------------------------------*/
-$color-primary : #1abd9b;//主题色
-
-$color-success: #13ce66;
-$color-warning: #f7ba2a;
-$color-danger: #ff4949;
-$color-info: #50bfff;
-
-$color-white: #fff;
-$color-black: #000;
-
+$color-blue:                #268afa;
 
 /**--------------------------------------
  * link
  *---------------------------------------*/
-$link-color: var(--color-extra-light-black);
-$link-hover-color: var(--color-primary);
+$link-color:                #666, #323232, #787878;
 
 
-$font-family:               'Microsoft YaHei', 'Arial' ;
-$font-size-min:             12 * $base;
-$font-size:                 14 * $base;
-$font-size-medium:          18 * $base;
+/**--------------------------------------
+ * font
+ *---------------------------------------*/
+$font-family:               'Microsoft YaHei' 'Arial' ;
+$font-size-min:             12px;
+$font-size:                 14px;
+$font-size-medium:          18px;
+$line-height:               1.6;
 
-$line-height:               2;
-
-$border-radius:             18px;
-
-
+/**--------------------------------------
+ * button
+ *---------------------------------------*/
 $btn-color:                 #ffffff, #ffffff, rgba(255,255,255,.5);
 $btn-background:            #ac975e, #bda460, #978450;
+
+/**--------------------------------------
+ * border
+ *---------------------------------------*/
+$border-color:              #dedede;
+$border-radius:             6px;
 
 
 $footer-link:               #979797, #ffffff, #999999;
 
-$link-color:                #646464, #323232, #787878;
 
 $radio-color:               #8c8c8c, #646464, #ac975e;
 $dropdown-color:            #8c8c8c, #646464, #505050;
 $dropdown-background:       #ffffff, #f0f0f0, #e6e6e6;
 
+/**--------------------------------------
+ * 页脚
+ *---------------------------------------*/
+$footer-bg-color:           #f2f2f2;
+$footer-color:              #666666;

@@ -64,17 +64,9 @@ $(function () {
 	var options = {
 		totalPages: 100,
 		onPageChange: function (num, type) {
-			$('#text').html('当前第' + num + '页');
 		}
 	}
 
 	$('#example').jqPaginator(options);
 
-
-	$.ajax("/sysNoticeAction!getNoticeList.action?rows=30&page=1");
-})
-
-// Ipmph.common.UserModel.on(Ipmph.common.UserModel.eventType.LOGIN_SUCCESS,function (data) {
-// 	console.log('接收到登录成功事件1')
-// 	// console.log(data)
-// });
+});

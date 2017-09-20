@@ -1,7 +1,26 @@
 @import "../../common/sass/index.scss";
 
 .footer{
-  color:#fff;
-  background-color: rgba(0,0,0,.3);
-  background-image: url(./images/1.jpg);
+  color:$footer-color;
+  background-color: $footer-bg-color;
+  border-top:1px solid $border-color;
+}
+.footerTitle{
+  color:$color-blue;
+}
+.footerList>ul{
+  float: left;
+  width: 33.33%;
+}
+.footerList>ul>li{
+  line-height: 2;
+}
+.footerList>ul>li:before{
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  width: 6px;
+  height: 6px;
+  background: $color-blue;
+  margin-right: 10px;
 }

@@ -12,82 +12,125 @@
 
 
 /*=================================================================
-  padding
+  padding margin
   =================================================================*/
-.paddingT0 { padding-top: 0; }
-.paddingT5  { padding-top: 5px; }
-.paddingT10 { padding-top: 10px; }
-.paddingT15 { padding-top: 15px; }
-.paddingT20 { padding-top: 20px; }
-
-.paddingB0 { padding-bottom: 0; }
-.paddingB5  { padding-bottom: 5px; }
-.paddingB10 { padding-bottom: 10px; }
-.paddingB15 { padding-bottom: 15px; }
-.paddingB20 { padding-bottom: 20px; }
-
-.paddingL0 { padding-left: 0; }
-.paddingL5  { padding-left: 5px; }
-.paddingL10 { padding-left: 10px; }
-.paddingL15 { padding-left: 15px; }
-.paddingL20 { padding-left: 20px; }
-
-.paddingR0 { padding-right: 0; }
-.paddingR5  { padding-right: 5px; }
-.paddingR10 { padding-right: 10px; }
-.paddingR15 { padding-right: 15px; }
-.paddingR20 { padding-right: 20px; }
-
-.padding0{padding: 0;}
-.padding20 { padding:  20px; }
+@for $i from 0 through 60{
+  @if $i % 10 == 0 {
+    .paddingT#{$i}{padding-top: #{$i}px}
+    .paddingL#{$i}{padding-left: #{$i}px}
+    .paddingR#{$i}{padding-right: #{$i}px}
+    .paddingB#{$i}{padding-bottom: #{$i}px}
+    .marginT#{$i}{margin-top: #{$i}px}
+    .marginL#{$i}{margin-left: #{$i}px}
+    .marginR#{$i}{margin-right: #{$i}px}
+    .marginB#{$i}{margin-bottom: #{$i}px}
+    .padding#{$i}{padding: #{$i}px}
+    .margin#{$i}{margin: #{$i}px}
+  }
+}
+/*=================================================================
+  font-size
+  =================================================================*/
+@for $i from 12 through 28{
+  @if $i % 2 == 0 {
+    .fontSize#{$i}{font-size: #{$i}px}
+  }
+}
+/*=================================================================
+  link
+  =================================================================*/
+a {
+  color: nth($link-color,1);
+  transition: all .3s;
+  text-decoration: none;
+  cursor: pointer;
+}
+a:hover {
+  color: nth($link-color,2);
+  //text-decoration: none;
+}
+a:visited {
+  color: nth($link-color,3);
+  text-decoration: none !important;
+}
+a:active {
+  color: nth($link-color,3);
+  text-decoration: none !important;
+}
 
 /*=================================================================
-  margin
+  list
   =================================================================*/
-.marginL0 { margin-left: 0;}
-.marginT0 { margin-top: 0;}
+.list-square {
+  margin: 0;
+  padding: 0;
+}
 
-.marginT10 { margin-top: 10px; }
-.marginT20 { margin-top: 20px; }
-.marginT30 { margin-top: 30px; }
-.marginT40 { margin-top: 40px; }
-.marginT50 { margin-top: 50px; }
-.marginT60 { margin-top: 60px; }
+.list-square li {
+  padding: 5px 0 5px 20px;
+  margin: 0;
+  list-style: none;
+  border-bottom: 1px solid #ddd;
+  /*background: url(../images/dot.jpg) 3px 16px no-repeat;*/
+}
 
-.marginL10 { margin-left: 10px; }
-.marginL20 { margin-left: 20px; }
-.marginL30 { margin-left: 30px; }
-.marginL40 { margin-left: 40px; }
-.marginL50 { margin-left: 50px; }
-.marginL60 { margin-left: 60px; }
 
-.marginR10 { margin-right: 10px; }
-.marginR20 { margin-right: 20px; }
-.marginR30 { margin-right: 30px; }
-.marginR40 { margin-right: 40px; }
-.marginR50 { margin-right: 50px; }
-.marginR60 { margin-right: 60px; }
+.ul-no-style{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ul-no-style li{
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
 
-.marginB10 { margin-bottom: 10px; }
-.marginB20 { margin-bottom: 20px; }
-.marginB30 { margin-bottom: 30px; }
-.marginB40 { margin-bottom: 40px; }
-.marginB50 { margin-bottom: 50px; }
-.marginB60 { margin-bottom: 60px; }
+.ul-center {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  /* For IE, the outcast */
+  zoom:1;
+  *display: inline;
+}
+.ul-center li {
+  float: left;
+  padding: 0px;
+}
 
+.normal-list {
+  border-top: 1px dotted #c3b592;
+}
+
+.normal-list li {
+  border-bottom: 1px dotted #c3b592;
+  padding: 6px 0 6px 12px;
+}
+/*=================================================================
+  其他始化
+  =================================================================*/
+.cut-line{
+  display: block;
+  margin: 30px 0;
+  width: 100%;
+  height:0;
+  border-bottom: 1px solid $border-color;
+}
 
 /**
   初始化布局
 */
 html{
   height:100%;
-  font-size: $baseFontSize;
 }
 body{
   min-height:100%;
   margin:0;
   padding:0;
   position:relative;
+  font-size: $font-size;
+  line-height: $line-height;
 }
 
 .wrapper{
@@ -96,13 +139,22 @@ body{
     
   }
   .page-main{
-    padding-bottom:100px;
+    padding-bottom:380px;
   }
   .footer{
     position:absolute;
     bottom:0;
     width:100%;
-    height:100px;
+    height:380px;
+  }
+  .content{
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .content-full{
+    width: 100%;
+    max-width: none;
   }
 }
 
@@ -111,11 +163,16 @@ body{
   公用样式
  */
 
+/*清除浮动*/
+.clearfix{
+  @include clearfix;
+}
+
 /*加载文字后面的...动画*/
 .loading-ellipsis:after {
   overflow: hidden;
   display: inline-block;
-  font-size: 18px;
+  font-size: 20px;
   vertical-align: bottom;
   animation: ellipsis-animate 2s infinite;
   content: "\2026"; /* ascii code for the ellipsis character */
@@ -125,7 +182,7 @@ body{
     width: 2px;
   }
   to {
-    width: 18px;
+    width: 28px;
   }
 }
 
