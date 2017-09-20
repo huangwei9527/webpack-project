@@ -1,0 +1,18 @@
+.my-message{
+	position: fixed;
+	top: 30px;
+	left: 50%;
+	width: 300px;
+	height: 40px;
+	margin-left: -150px;
+}
+.my-message .message-icon{
+	float: left;
+	width: 40px;
+	height: 40px;
+}
+.my-message .message-text{
+	float: left;
+	width: 40px;
+	height: ;
+}
